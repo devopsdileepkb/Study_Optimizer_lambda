@@ -39,7 +39,7 @@ module "s3_notification" {
 }
 
 module "eventbridge" {
-  source              = "../modules/eventbridge"
+  source              = "../modules/event_bridge"
   environment         = var.environment
   schedule_expression = "cron(0 1 * * ? *)"
   lambda_function_arn = module.lambda.lambda_arn
