@@ -16,9 +16,10 @@ module "iam_role_policy_attachment" {
 }
 
 module "lambda" {
-  source        = "../modules/lambda"
-  environment   = var.environment
-  region        = var.region
-  bucket_name   = var.bucket_name
+  source          = "../modules/lambda"
+  environment     = var.environment
+  region          = var.region
+  bucket_name     = var.bucket_name
   lambda_role_arn = module.iam_role.lambda_role_arn
+  lambda_name     = "zip-csv-lambda-${var.environment}"
 }

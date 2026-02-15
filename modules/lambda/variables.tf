@@ -13,3 +13,8 @@ variable "bucket_name" {
 variable "lambda_role_arn" {
   type        = string
 }
+
+variable "lambda_name" {
+  type        = string
+  description = "Name of the Lambda function"
+}

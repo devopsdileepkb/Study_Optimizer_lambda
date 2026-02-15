@@ -5,14 +5,14 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "aws_lambda_function" "zip_csv_lambda" {
-  function_name = local.lambda_name
+  function_name = var.lambda_name
   role          = var.lambda_role_arn
   handler       = "lambda.handler"
   runtime       = "python3.9"
   timeout       = 60
   memory_size   = 512
 
-  # Use the archive_file output instead of hardcoded path
+  # Correct: reference the archive_file output
   filename = data.archive_file.lambda_zip.output_path
 
   environment {
