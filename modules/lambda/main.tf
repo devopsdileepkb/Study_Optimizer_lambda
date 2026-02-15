@@ -1,3 +1,9 @@
+data "archive_file" "lambda_zip" {
+  type        = "zip"
+  source_file = "${path.module}/../../src/lambda/lambda.py"
+  output_path = "${path.module}/../../src/lambda/lambda.zip"
+}
+
 resource "aws_lambda_function" "zip_csv_lambda" {
   function_name = local.lambda_name
   role          = var.lambda_role_arn
@@ -6,7 +12,8 @@ resource "aws_lambda_function" "zip_csv_lambda" {
   timeout       = 60
   memory_size   = 512
 
-  filename = "${path.module}/../../src/lambda/lambda.zip"
+  # Use the archive_file output instead of hardcoded path
+  filename = data.archive_file.lambda_zip.output_path
 
   environment {
     variables = {
