@@ -1,7 +1,9 @@
-output "lambda_function_name" {
-  value = module.lambda.lambda_name
+output "lambda_name" {
+  description = "Name of the Lambda function"
+  value       = aws_lambda_function.zip_csv_lambda.function_name
 }
 
-output "lambda_function_arn" {
-  value = module.lambda.lambda_arn
+output "lambda_arn" {
+  description = "ARN of the Lambda function"
+  value       = aws_lambda_function.zip_csv_lambda.arn
 }
