@@ -1,0 +1,44 @@
+name: Deploy Lambda
+
+on:
+  workflow_dispatch:   # allows manual trigger with inputs
+    inputs:
+      environment:
+        description: "Environment to deploy (dev, sit, ppt, prd)"
+        required: true
+        default: "dev"
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/<GitHubOIDCRole>
+          aws-region: us-east-1
+
+      - name: Terraform Init
+        working-directory: iac
+        run: terraform init
+
+      - name: Terraform Plan
+        working-directory: iac
+        run: terraform plan -var-file=environment/${{ github.event.inputs.environment }}.tfvars
+
+      - name: Terraform Apply
+        working-directory: iac
+        run: terraform apply -auto-approve -var-file=environment/${{ github.event.inputs.environment }}.tfvars
