@@ -1,11 +1,4 @@
-variable "environment" {
-  type        = string
-}
-
-variable "bucket_name" {
-  type        = string
-}
-
-variable "lambda_role_id" {
-  type        = string
+output "lambda_policy_id" {
+  description = "ID of the IAM policy attached to Lambda role"
+  value       = aws_iam_role_policy.lambda_s3_policy.id
 }

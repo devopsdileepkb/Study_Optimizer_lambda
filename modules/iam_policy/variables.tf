@@ -1,3 +1,11 @@
-output "lambda_s3_policy_name" {
-  value = aws_iam_role_policy.lambda_s3_policy.name
+variable "environment" {
+  type        = string
+}
+
+variable "bucket_name" {
+  type        = string
+}
+
+variable "lambda_role_id" {
+  type        = string
 }

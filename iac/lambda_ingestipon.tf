@@ -28,7 +28,7 @@ module "lambda_permission" {
   source               = "../modules/lambda_permission"
   lambda_function_name = module.lambda.lambda_name
   bucket_name          = var.bucket_name
-  eventbridge_rule_arn = module.eventbridge.event_rule_arn
+  eventbridge_rule_arn = module.event_bridge.event_rule_arn
 }
 
 module "s3_notification" {
