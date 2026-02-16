@@ -22,3 +22,8 @@ variable "filter_suffix" {
   type        = string
   default     = ".csv"
 }
+
+variable "kms_key_id" {
+  type        = string
+  description = "KMS key ID for S3 bucket encryption"
+}

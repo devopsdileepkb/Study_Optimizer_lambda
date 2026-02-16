@@ -11,6 +11,7 @@ resource "aws_lambda_function" "zip_csv_lambda" {
   runtime       = "python3.9"
   timeout       = 60
   memory_size   = 512
+  kms_key_arn   = var.kms_key_arn     #new added
 
   # Correct: reference the archive_file output
   filename = data.archive_file.lambda_zip.output_path

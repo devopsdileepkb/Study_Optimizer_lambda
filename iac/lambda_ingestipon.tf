@@ -22,6 +22,7 @@ module "lambda" {
   bucket_name     = var.bucket_name
   lambda_role_arn = module.iam_role.lambda_role_arn
   lambda_name     = "zip-csv-lambda-${var.environment}"
+  kms_key_arn     = module.kms.kms_key_arn                          # new added now
 }
 
 module "lambda_permission" {
@@ -35,6 +36,7 @@ module "s3_notification" {
   source              = "../modules/s3_notification"
   bucket_name         = var.bucket_name
   lambda_function_arn = module.lambda.lambda_arn
+  kms_key_id  = module.kms.kms_key_id
   lambda_permission_id = module.lambda_permission.s3_permission_id
 }
 
@@ -44,4 +46,9 @@ module "event_bridge" {
   schedule_expression = "cron(0 1 * * ? *)"
   lambda_function_arn = module.lambda.lambda_arn
 
+}
+
+module "kms" {
+  source              = "../modules/kms"
+  kms_key_description = "KMS key for ${var.environment} Lambda and S3"
 }

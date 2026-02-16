@@ -17,3 +17,11 @@ output "s3_notification_id" {
 output "event_rule_arn" {
   value = module.event_bridge.event_rule_arn
 }
+
+output "kms_key_arn" {
+  value = module.kms.kms_key_arn
+}
+
+output "kms_alias_name" {
+  value = module.kms.kms_alias_name
+}

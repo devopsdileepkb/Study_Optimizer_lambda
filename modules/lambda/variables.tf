@@ -18,3 +18,9 @@ variable "lambda_name" {
   type        = string
   description = "Name of the Lambda function"
 }
+
+variable "kms_key_arn" {
+  type        = string
+  default     = null
+  description = "Optional KMS key ARN for Lambda encryption"
+}
